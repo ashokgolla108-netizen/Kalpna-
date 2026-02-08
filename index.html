@@ -3,57 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I love you kalpana (happy propose day) ♥️😜</title>
+<title>I love you Kalpana ❤️</title>
 
 <style>
 body{
   margin:0;
   height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   background:linear-gradient(135deg,#ff5f8f,#ff9aa2);
   font-family:'Poppins',sans-serif;
   overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* Container */
+/* Main container */
 #container{
   text-align:center;
   padding:10px;
 }
 
-/* Final main text */
-#mainText{
-  font-size:2.2rem;
+/* TITLE — NEVER HIDDEN */
+#title{
+  font-size:1.8rem;
   font-weight:bold;
-  color:#ff0033;
-  padding:26px 34px;
-  background:rgba(255,255,255,0.92);
-  border-radius:35px;
-  box-shadow:0 18px 45px rgba(0,0,0,.35);
-  margin-bottom:18px;
-  display:none;
+  color:#fff;
+  margin-bottom:20px;
+  text-shadow:0 4px 10px rgba(0,0,0,0.35);
 }
 
-/* Rotating message */
-#subText{
-  font-size:1.5rem;
-  font-weight:600;
-  color:#7a001f;
-  background:rgba(255,255,255,0.85);
-  padding:14px 20px;
-  border-radius:22px;
-  box-shadow:0 10px 25px rgba(0,0,0,.25);
-  opacity:0;
-  transition:opacity 1s ease;
-}
-
-/* Options */
+/* Buttons */
 .btn{
-  font-size:1.5rem;
+  font-size:1.4rem;
   padding:14px 28px;
-  margin:12px;
+  margin:10px;
   border:none;
   border-radius:30px;
   cursor:pointer;
@@ -68,6 +51,32 @@ body{
 .no{
   background:#333;
   color:white;
+}
+
+/* Main constant text */
+#mainText{
+  display:none;
+  font-size:2.1rem;
+  font-weight:bold;
+  color:#ff0033;
+  background:rgba(255,255,255,0.92);
+  padding:24px 30px;
+  border-radius:30px;
+  box-shadow:0 18px 45px rgba(0,0,0,.35);
+  margin-bottom:16px;
+}
+
+/* Loop message */
+#loopText{
+  font-size:1.4rem;
+  font-weight:600;
+  color:#7a001f;
+  background:rgba(255,255,255,0.85);
+  padding:14px 20px;
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  opacity:0;
+  transition:opacity 0.8s ease;
 }
 
 /* Emoji rain */
@@ -89,16 +98,25 @@ body{
 
 <div id="container">
 
+  <!-- TITLE ALWAYS VISIBLE -->
+  <div id="title">
+    I love you Kalpana ❤️<br>
+    (Happy Propose Day)
+  </div>
+
+  <!-- OPTIONS -->
   <div id="options">
     <button class="btn yes" onclick="startLove()">Love you too ❤️</button>
     <button class="btn no" onclick="startLove()">Hate you 😈</button>
   </div>
 
+  <!-- MAIN TEXT -->
   <div id="mainText">
-    I love you too Ashok mama ❤️🥰😘🤗💋💞
+    I love you too Ashok mama ❤️🥰
   </div>
 
-  <div id="subText"></div>
+  <!-- LOOP TEXT -->
+  <div id="loopText"></div>
 
 </div>
 
@@ -111,14 +129,12 @@ const messages = [
   "Siggu padindi chalu… ippudu navvu control cheyyaku 😳",
   "Ee smile chalu… heart melt aipoyindi 💖",
   "Silent ga navvuthunnav… cute ga undi 😏",
-  "Phone pakkana petti kuda navvuthunnava 😄",
   "Ee navvu naku chala special 💛",
   "Alane navvuthu undu… baguntundi 😌",
-  "Smile unte day automatic ga baaguntundi 😊",
-  "Ee navvu chusi naaku kuda navvu vastundi 😄"
+  "Smile unte day automatic ga baaguntundi 😊"
 ];
 
-let idx = 0;
+let i = 0;
 let started = false;
 
 function startLove(){
@@ -129,19 +145,23 @@ function startLove(){
   document.getElementById("mainText").style.display="block";
   document.getElementById("song").play();
 
-  showSubText();
-  setInterval(showSubText, 4000);
+  showLoopText();
+  setInterval(showLoopText, 5000); // every 5 sec
 }
 
-function showSubText(){
-  const box = document.getElementById("subText");
+function showLoopText(){
+  const box = document.getElementById("loopText");
   box.style.opacity = 0;
 
   setTimeout(()=>{
-    box.innerText = messages[idx];
+    box.innerText = messages[i];
     box.style.opacity = 1;
-    idx = (idx + 1) % messages.length;
+    i = (i + 1) % messages.length;
   },500);
+
+  setTimeout(()=>{
+    box.style.opacity = 0;
+  },3500); // visible 3 sec
 }
 
 /* Emoji rain forever */
