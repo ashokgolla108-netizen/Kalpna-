@@ -2,104 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Love Message ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Propose Day ❤️</title>
 
 <style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    font-family:Arial, sans-serif;
-    overflow:hidden;
-    color:white;
-    text-align:center;
-}
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
 
-h1{
-    font-size:32px;
-    margin-bottom:20px;
-}
+  .box {
+    color: white;
+    padding: 20px;
+    max-width: 90%;
+  }
 
-button{
-    padding:12px 26px;
-    font-size:18px;
-    border:none;
-    border-radius:25px;
-    margin:10px;
-    cursor:pointer;
-}
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
 
-#loveBtn{
-    background:#ff003c;
-    color:white;
-}
+  button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
 
-#hateBtn{
-    background:white;
-    color:#333;
-}
+  button:hover {
+    transform: scale(1.1);
+  }
 
-.heart{
-    position:fixed;
-    bottom:-20px;
-    font-size:26px;
-    animation:floatUp 6s linear forwards;
-}
+  .love {
+    background: #ff4d6d;
+    color: white;
+  }
 
-@keyframes floatUp{
-    from{ transform:translateY(0); opacity:1; }
-    to{ transform:translateY(-120vh); opacity:0; }
-}
+  .hate {
+    background: #333;
+    color: white;
+  }
+
+  .message {
+    font-size: 22px;
+    margin-top: 30px;
+    opacity: 0;
+    animation: fade 2s forwards;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" autoplay loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
+<div class="box">
+  <h1>💖 I love you Kalpana 💖<br>(Happy Propose Day)</h1>
 
-<h1 id="text">I love Kalpna ❤️</h1>
+  <div id="buttons">
+    <button class="love" onclick="startLove()">I love you 😍</button>
+    <button class="hate" onclick="startLove()">I hate you 😜</button>
+  </div>
 
-<div id="buttons">
-    <button id="loveBtn">I love you too ❤️</button>
-    <button id="hateBtn">I hate you 😒</button>
+  <div id="msg" class="message"></div>
 </div>
 
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-const text = document.getElementById("text");
-const buttons = document.getElementById("buttons");
-const hateBtn = document.getElementById("hateBtn");
-const music = document.getElementById("bgMusic");
+  const messages = [
+    "Love you too Ashok mama 😍❤️",
+    "Siggu padindi chalu 😜💕",
+    "Navvuthunnav kada 😄💖",
+    "Inka entha cute ga untav 😍✨",
+    "YES cheppina feeling ade 🥰",
+    "Escape avvalevu 😎❤️",
+    "Naa heart already neede 💕😘"
+  ];
 
-/* Some browsers block autoplay until interaction */
-document.body.addEventListener("click", () => {
-    music.play();
-},{ once:true });
+  let index = 0;
+  let interval;
 
-hateBtn.onclick = () => {
-    text.innerText = "I love you too Ashok mama ❤️";
-    buttons.style.display = "none";
-    startHearts();
-};
+  function startLove() {
+    document.getElementById("buttons").style.display = "none";
+    showMessage();
+    interval = setInterval(showMessage, 4000);
+  }
 
-function startHearts(){
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerText = "❤️";
-        heart.style.left = Math.random() * 100 + "%";
-        document.body.appendChild(heart);
+  function showMessage() {
+    const msg = document.getElementById("msg");
+    msg.style.opacity = 0;
 
-        setTimeout(() => heart.remove(), 6000);
+    setTimeout(() => {
+      msg.innerHTML = messages[index];
+      msg.style.animation = "none";
+      void msg.offsetWidth;
+      msg.style.animation = "fade 2s forwards";
+
+      index = (index + 1) % messages.length;
     }, 500);
-}
+  }
 </script>
 
 </body>
