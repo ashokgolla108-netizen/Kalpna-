@@ -17,25 +17,57 @@ body{
   overflow:hidden;
 }
 
-/* Main message */
-#loveText{
-  font-size:2.3rem;
+/* Container */
+#container{
+  text-align:center;
+  padding:10px;
+}
+
+/* Final main text */
+#mainText{
+  font-size:2.2rem;
   font-weight:bold;
   color:#ff0033;
-  text-align:center;
   padding:26px 34px;
   background:rgba(255,255,255,0.92);
   border-radius:35px;
   box-shadow:0 18px 45px rgba(0,0,0,.35);
-  animation:loveLoop 3.5s infinite;
+  margin-bottom:18px;
+  display:none;
 }
 
-/* Loop animation */
-@keyframes loveLoop{
-  0%{opacity:0;transform:scale(.9);}
-  20%{opacity:1;transform:scale(1);}
-  80%{opacity:1;transform:scale(1);}
-  100%{opacity:0;transform:scale(1.05);}
+/* Rotating message */
+#subText{
+  font-size:1.5rem;
+  font-weight:600;
+  color:#7a001f;
+  background:rgba(255,255,255,0.85);
+  padding:14px 20px;
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+/* Options */
+.btn{
+  font-size:1.5rem;
+  padding:14px 28px;
+  margin:12px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.yes{
+  background:#ff0033;
+  color:white;
+}
+
+.no{
+  background:#333;
+  color:white;
 }
 
 /* Emoji rain */
@@ -55,15 +87,65 @@ body{
 
 <body>
 
-<div id="loveText">
-  Love you too Ashok mama ❤️🥰😘🤗💋💞
+<div id="container">
+
+  <div id="options">
+    <button class="btn yes" onclick="startLove()">Love you too ❤️</button>
+    <button class="btn no" onclick="startLove()">Hate you 😈</button>
+  </div>
+
+  <div id="mainText">
+    I love you too Ashok mama ❤️🥰😘🤗💋💞
+  </div>
+
+  <div id="subText"></div>
+
 </div>
 
-<audio src="song.mp3" autoplay loop></audio>
+<audio id="song" src="song.mp3" loop></audio>
 
 <script>
+const messages = [
+  "Navvuthunnav ante naa meedha prema unnate kadha 😄",
+  "Phone chusthu navvuthunnav ante reason nene 😜",
+  "Siggu padindi chalu… ippudu navvu control cheyyaku 😳",
+  "Ee smile chalu… heart melt aipoyindi 💖",
+  "Silent ga navvuthunnav… cute ga undi 😏",
+  "Phone pakkana petti kuda navvuthunnava 😄",
+  "Ee navvu naku chala special 💛",
+  "Alane navvuthu undu… baguntundi 😌",
+  "Smile unte day automatic ga baaguntundi 😊",
+  "Ee navvu chusi naaku kuda navvu vastundi 😄"
+];
+
+let idx = 0;
+let started = false;
+
+function startLove(){
+  if(started) return;
+  started = true;
+
+  document.getElementById("options").style.display="none";
+  document.getElementById("mainText").style.display="block";
+  document.getElementById("song").play();
+
+  showSubText();
+  setInterval(showSubText, 4000);
+}
+
+function showSubText(){
+  const box = document.getElementById("subText");
+  box.style.opacity = 0;
+
+  setTimeout(()=>{
+    box.innerText = messages[idx];
+    box.style.opacity = 1;
+    idx = (idx + 1) % messages.length;
+  },500);
+}
+
 /* Emoji rain forever */
-const emojis = ["❤️","💖","😘","💋","🤗","🥰","💞","😍"];
+const emojis=["❤️","💖","😘","💋","🤗","🥰","💞","😍"];
 
 setInterval(()=>{
   const e=document.createElement("div");
@@ -72,7 +154,6 @@ setInterval(()=>{
   e.style.left=Math.random()*100+"vw";
   e.style.animationDuration=(3+Math.random()*3)+"s";
   document.body.appendChild(e);
-
   setTimeout(()=>e.remove(),6000);
 },200);
 </script>
